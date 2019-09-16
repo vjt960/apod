@@ -1,7 +1,9 @@
 <template> 
   <div id="app"> 
-    <h1 @click='clickFn' >Click Me</h1>
-    <img alt="Vue logo" src="./assets/logo.png">
+    <h1 @click='clickFn' >NASA's Astronomy Picture of the Day</h1> 
+    <p>{{this.timesClicked}}</p>
+    <img class='apod' :alt=this.title :src=this.apod />
+    <p class='apod-description'>{{this.desc}}</p>
   </div>
 </template>
 
@@ -9,11 +11,24 @@
 import { getAPOD } from './utils/apiCalls';
 
 export default {
-  name: 'app',
+  name: 'app', 
+  data() {
+    return {
+      apod: '', 
+      title: '', 
+      desc: '', 
+      timesClicked: 0
+    }
+  }, 
+  async mounted() {
+    const data = await getAPOD(); 
+    this.apod = data.url; 
+    this.desc = data.explanation; 
+    this.title = data.title;
+  }, 
   methods: {
-    clickFn: async () => {
-      const test = await getAPOD(); 
-      console.log(test)
+    clickFn() {
+      this.timesClicked ++;
     }
   }
 }
