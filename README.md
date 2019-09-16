@@ -1,29 +1,11 @@
-# apod
+# Astronomy Picture of the Day (APOD)
 
-## Project setup
+## Project Description
 ```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
+Single page application created in Vue to utilise NASA's APoD api to display their astronomy picture of the day. 
 ```
 
-### Compiles and minifies for production
+### PROJECT STATUS:
 ```
-npm run build
+Project currently under construction.
 ```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
