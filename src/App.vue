@@ -1,22 +1,25 @@
-<template>
-  <div id="app">
+<template> 
+  <div id="app"> 
+    <h1 @click='clickFn' >Click Me</h1>
     <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import { getAPOD } from './utils/apiCalls';
 
 export default {
   name: 'app',
-  components: {
-    HelloWorld
+  methods: {
+    clickFn: async () => {
+      const test = await getAPOD(); 
+      console.log(test)
+    }
   }
 }
 </script>
 
-<style>
+<style scoped>
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -24,5 +27,10 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+} 
+
+h1:hover {
+  cursor: pointer; 
+  color: red;
 }
 </style>
