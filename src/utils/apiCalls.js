@@ -1,7 +1,6 @@
 const apiKey = process.env.VUE_APP_API_KEY;
 
 export const getAPOD = async selectedDate => {
-  console.log(process.env);
   const url = 'https://api.nasa.gov/planetary/apod?';
   const date = new Date();
   const year = date.getFullYear();
