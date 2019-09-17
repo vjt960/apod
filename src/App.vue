@@ -29,6 +29,12 @@ export default {
   methods: {
     clickFn() {
       this.timesClicked ++;
+    }, 
+    async changeApodByDate(date) {
+      const data = await getAPOD(date); 
+      this.apod = data.url; 
+      this.desc = data.explanation; 
+      this.title = data.title;
     }
   }
 }
