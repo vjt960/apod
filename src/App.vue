@@ -1,6 +1,6 @@
 <template>
 	<div id="app">
-		<h1 @click="clickFn">NASA's Astronomy Picture of the Day</h1>
+		<h1>NASA's Astronomy Picture of the Day</h1>
 		<p>{{this.timesClicked}}</p>
 		<img v-if="this.mediaType === 'image'" class="apod" :alt="this.title" :src="this.apod" />
 		<iframe v-else type="text/css" height="500" width="720" :title="this.title" :src="this.apod"></iframe>
