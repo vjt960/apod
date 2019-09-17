@@ -1,9 +1,15 @@
 <template>
 	<div id="app">
 		<h1>NASA's Astronomy Picture of the Day</h1>
-		<p>{{this.timesClicked}}</p>
-		<img v-if="this.mediaType === 'image'" class="apod" :alt="this.title" :src="this.apod" />
-		<iframe v-else type="text/css" height="500" width="720" :title="this.title" :src="this.apod"></iframe>
+		<iframe
+			v-if="this.mediaType === 'video'"
+			type="text/css"
+			height="500"
+			width="720"
+			:title="this.title"
+			:src="this.apod"
+		></iframe>
+		<img v-else class="apod" :alt="this.title" :src="this.apod" />
 		<p class="apod-description">{{this.desc}}</p>
 	</div>
 </template>
@@ -27,6 +33,7 @@
 			this.desc = data.explanation;
 			this.title = data.title;
 			this.medaType = data.media_type;
+			console.log(this.apod);
 		},
 		methods: {
 			async changeApodByDate(date) {
