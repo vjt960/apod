@@ -1,63 +1,53 @@
 <template>
 	<div id="app">
-		<h1>NASA's Astronomy Picture of the Day</h1>
-		<iframe
-			v-if="this.mediaType === 'video'"
-			type="text/css"
-			height="500"
-			width="720"
-			:title="this.title"
-			:src="this.apod"
-		></iframe>
-		<img v-else class="apod" :alt="this.title" :src="this.apod" />
-		<p class="apod-description">{{this.desc}}</p>
+		<header>
+			<nav>
+				<ul>
+					<li>
+						<router-link to="/">Home</router-link>
+					</li>
+					<li>
+						<router-link to="/Calendar">APOD Monthly</router-link>
+					</li>
+				</ul>
+			</nav>
+		</header>
+		<router-view></router-view>
 	</div>
 </template>
 
 <script>
-	import { getAPOD } from "./utils/apiCalls";
+	// import { getAPOD, getMonthsAPOD } from "./utils/apiCalls";
+	// import router from "./main";
+	// import VueRouter from "vue-router";
+	// Vue.use(VueRouter);
 
 	export default {
-		name: "app",
-		data() {
-			return {
-				apod: "",
-				title: "",
-				desc: "",
-				mediaType: ""
-			};
-		},
-		async mounted() {
-			const data = await getAPOD();
-			this.apod = data.url;
-			this.desc = data.explanation;
-			this.title = data.title;
-			this.medaType = data.media_type;
-			console.log(this.apod);
-		},
-		methods: {
-			async changeApodByDate(date) {
-				const data = await getAPOD(date);
-				this.apod = data.url;
-				this.desc = data.explanation;
-				this.title = data.title;
-			}
-		}
+		name: "app"
 	};
 </script>
 
 <style scoped>
-	#app {
-		font-family: "Avenir", Helvetica, Arial, sans-serif;
-		-webkit-font-smoothing: antialiased;
-		-moz-osx-font-smoothing: grayscale;
-		text-align: center;
-		color: #2c3e50;
-		margin-top: 60px;
+	nav {
+		height: auto;
+		width: auto;
+		margin: 0;
+		padding: 0;
+		display: flex;
 	}
 
-	h1:hover {
-		cursor: pointer;
-		color: red;
+	ul {
+		width: 100%;
+		height: 50px;
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-end;
+		list-style: none;
+		padding: 0;
+	}
+
+	li {
+		margin: 5px;
+		font-size: 1.25em;
 	}
 </style>
