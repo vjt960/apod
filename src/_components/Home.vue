@@ -1,15 +1,24 @@
 <template>
 	<div id="home">
-		<h1>NASA's Astronomy Picture of the Day</h1>
-		<iframe
-			v-if="this.mediaType === 'video'"
-			type="text/css"
-			height="500"
-			width="720"
-			:title="this.title"
-			:src="this.apod"
-		></iframe>
-		<img v-else class="apod" :alt="this.title" :src="this.apod" />
+		<img
+			v-if="this.isLoading === true"
+			class="loading-gif"
+			src="../assets/loading-hex.gif"
+			alt="loading-gif"
+		/>
+		<div v-else class="image-container">
+			<iframe
+				v-if="this.mediaType === 'video'"
+				class="media apod"
+				type="text/css"
+				height="500"
+				width="720"
+				:title="this.title"
+				:src="this.apod"
+			></iframe>
+			<img v-else class="apod" :alt="this.title" :src="this.apod" />
+		</div>
+		<p class="apod-title">{{this.title}}</p>
 		<p class="apod-description">{{this.desc}}</p>
 	</div>
 </template> 
@@ -23,29 +32,55 @@
 				apod: "",
 				title: "",
 				desc: "",
-				mediaType: ""
+				mediaType: "",
+				error: "",
+				isLoading: false
 			};
 		},
 		async mounted() {
-			const data = await getAPOD();
-			this.apod = data.url;
-			this.desc = data.explanation;
-			this.title = data.title;
-			this.medaType = data.media_type;
+			await this.loadApod();
 		},
 		methods: {
-			async changeApodByDate(date) {
-				const data = await getAPOD(date);
-				this.apod = data.url;
-				this.desc = data.explanation;
-				this.title = data.title;
+			async loadApod() {
+				this.isLoading = true;
+				try {
+					const data = await getAPOD();
+					this.apod = data.url;
+					this.desc = data.explanation;
+					this.title = data.title;
+					this.medaType = data.media_type;
+					this.error = "";
+				} catch (error) {
+					this.error = error.message;
+				}
+				this.isLoading = false;
 			}
 		}
 	};
 </script>
 
 <style scoped>
-	h1 {
-		text-align: center;
+	#home {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.loading-gif {
+		margin-top: 20%;
+	}
+
+	.apod-title {
+		font-size: 1.45em;
+	}
+
+	.apod-description {
+		font-size: 1.2em;
+	}
+
+	p {
+		color: white;
+		font-family: "Orbitron", sans-serif;
+		width: 65%;
 	}
 </style>
