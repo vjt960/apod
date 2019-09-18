@@ -70,6 +70,13 @@
 		margin-top: 20%;
 	}
 
+	iframe,
+	img {
+		object-fit: cover;
+		height: 500px;
+		width: 720px;
+	}
+
 	.apod-title {
 		font-size: 1.45em;
 	}
