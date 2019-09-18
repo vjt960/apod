@@ -32,6 +32,8 @@
 	body {
 		height: 100%;
 		overflow: auto;
+		overflow-x: hidden;
+		overflow-y: scroll;
 		margin: 0;
 		padding: 0;
 		background: url("./assets/nasa.png");
