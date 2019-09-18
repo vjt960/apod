@@ -17,11 +17,6 @@
 </template>
 
 <script>
-	// import { getAPOD, getMonthsAPOD } from "./utils/apiCalls";
-	// import router from "./main";
-	// import VueRouter from "vue-router";
-	// Vue.use(VueRouter);
-
 	export default {
 		name: "app"
 	};
