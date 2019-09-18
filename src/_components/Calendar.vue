@@ -1,6 +1,14 @@
 <template>
 	<div id="calendar">
-		<h1>Astronomy Pictures this Month</h1>
+		<h2 class="calendar-header">Astronomy Pictures this Month</h2>
+		<div class="loading-container">
+			<img
+				v-if="this.isLoading === true"
+				class="loading-gif"
+				src="../assets/loading-hex.gif"
+				alt="loading-gif"
+			/>
+		</div>
 		<section>
 			<Card
 				v-for="(obj, index) in apods"
@@ -21,21 +29,51 @@
 		components: { Card },
 		data() {
 			return {
-				apods: []
+				apods: [],
+				isLoading: false,
+				error: ""
 			};
 		},
 		async mounted() {
-			const data = await getMonthsAPOD();
-			this.apods = data;
+			await this.loadMonthlyApods();
+		},
+		methods: {
+			async loadMonthlyApods() {
+				this.isLoading = true;
+				try {
+					const data = await getMonthsAPOD();
+					this.apods = data;
+					this.error = "";
+				} catch (error) {
+					this.error = error.message;
+				}
+				this.isLoading = false;
+			}
 		}
 	};
 </script> 
 
 <style scoped>
+	.calendar-header {
+		color: white;
+		font-family: "Orbitron", sans-serif;
+		/* margin-top: 10%; */
+	}
+
+	h2 {
+		text-align: center;
+	}
+
 	section {
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
 		grid-gap: 10px;
 		margin: 1%;
+	}
+
+	.loading-container {
+		margin-top: 10%;
+		display: flex;
+		justify-content: center;
 	}
 </style>
